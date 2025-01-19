@@ -16,6 +16,9 @@ export default {
         raleway: ['var(--font-raleway)', 'sans-serif'],
         poppins: ['var(--font-poppins)', 'sans-serif'],
       },
+      boxShadow: {
+        'custom': '0px 25px 20px -20px rgba(82, 157, 78, 0.25)', // Custom shadow
+      },
     },
   },
   plugins: [],

@@ -20,7 +20,7 @@ const TopBar = ()=>{
         </div>
         <div className="flex items-center space-x-2">
         <Image src={mobile} alt="mobile-icon"/>
-        <span className="text-[#FFFFFF] font-[700] font-raleway ">Download App Now!</span>
+        <span className="text-[#FFFFFF] font-[700] text-[15px] font-raleway ">Download App Now!</span>
         </div>
          </div>
     )
