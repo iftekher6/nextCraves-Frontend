@@ -9,7 +9,7 @@ const Search = ()=>{
    
     <div className="  absolute z-10 top-[393.2px] left-1/2 transform -translate-x-1/2 -translate-y-1/2  " >
  {/* START */}
-     <div  className="flex flex-col w-[600px] rounded-md bg-[#fff]  h-[130px] shadow-lg shadow-custom">
+     <div  className="flex flex-col w-[600px] rounded-md bg-[#fff]  h-[130px] shadow-custom">
       {/* top container */}
       <div className="h-[50%] border-b border-[#EEF5ED] p-2 w-full flex justify-start items-center">
  
@@ -62,7 +62,7 @@ const Search = ()=>{
          alt="Search-Image"
          priority 
          />
-         <button className="font-raleway font-[700]  text-sm" >Find Food</button>
+         <button className="font-raleway font-[700] text-[#FFF]  text-sm" >Find Food</button>
         </div>
        {/* End of bottom Container */}
        </div>
