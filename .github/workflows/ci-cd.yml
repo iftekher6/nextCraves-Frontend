@@ -3,12 +3,11 @@ name: CI/CD for Next.js on Railway
 on:
   push:
     branches: [master, dev]
-  pull_request:
-    branches: [master, dev]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,35 +27,27 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Uncomment if you have tests
-      # - name: Run tests
+      # Optional: run tests
+      # - name: Test
       #   run: npm test
       #   continue-on-error: true
 
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
+    if: success() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
 
     steps:
-      - name: Trigger Railway Deployment
-        uses: railwayapp/trigger-action@v1
-        with:
-          railwayToken: ${{ secrets.RAILWAY_TOKEN }}
-          projectId: ${{ secrets.RAILWAY_PROJECT_ID }}
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # Deploy to staging if pushing to dev
-    if: github.ref == 'refs/heads/dev'
+      - name: Install Railway CLI
+        run: npm install -g railway
 
-  deploy-prod:
-    needs: build-and-test
-    runs-on: ubuntu-latest
+      - name: Railway login
+        run: railway login --token ${{ secrets.RAILWAY_TOKEN }}
 
-    steps:
-      - name: Trigger Railway Deployment (Production)
-        uses: railwayapp/trigger-action@v1
-        with:
-          railwayToken: ${{ secrets.RAILWAY_TOKEN }}
-          projectId: ${{ secrets.RAILWAY_PROJECT_ID }}
-
-    # Deploy to production if pushing to master
-    if: github.ref == 'refs/heads/master'
+      - name: Deploy to Railway
+        run: |
+          railway up --project ${{ secrets.RAILWAY_PROJECT_ID }} \
+            --environment ${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }}
