@@ -1,5 +1,5 @@
 import toggle from '@/public/toggle.svg'
-import Day from '@/public/Day.svg'
+
 
 import Image from 'next/image'
 
