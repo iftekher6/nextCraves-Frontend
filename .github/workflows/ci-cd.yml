@@ -44,9 +44,31 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
+      - name: Link Railway Project
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          if [ -n "${{ secrets.RAILWAY_PROJECT_ID }}" ]; then
+            railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+          else
+            echo "RAILWAY_PROJECT_ID secret is not set!" && exit 1
+          fi
+
+      - name: Set Railway Environment
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/master" ]; then
+            railway environment production
+          else
+            railway environment staging
+          fi
+
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway up -- --project ${{ secrets.RAILWAY_PROJECT_ID }} \
-            --environment ${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }}
+          if [ -z "${{ secrets.RAILWAY_TOKEN }}" ]; then
+            echo "RAILWAY_TOKEN secret is not set!" && exit 1
+          fi
+          railway up
