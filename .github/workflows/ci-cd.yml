@@ -45,9 +45,9 @@ jobs:
         run: npm install -g @railway/cli
 
       - name: Railway login
-        run: railway1 login --token ${{ secrets.RAILWAY_TOKEN }}
+        run: railway login --token ${{ secrets.RAILWAY_TOKEN }}
 
       - name: Deploy to Railway
         run: |
-          railway1 up --project ${{ secrets.RAILWAY_PROJECT_ID }} \
+          railway up --project ${{ secrets.RAILWAY_PROJECT_ID }} \
             --environment ${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }}
