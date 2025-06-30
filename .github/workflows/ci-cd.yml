@@ -48,5 +48,5 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway up --project ${{ secrets.RAILWAY_PROJECT_ID }} \
+          railway up -- --project ${{ secrets.RAILWAY_PROJECT_ID }} \
             --environment ${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }}
