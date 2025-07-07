@@ -18,6 +18,7 @@ export default function PostsList() {
     const fetchPosts = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_JSONPLACEHOLDER_API_URL
+        console.log('API URL:', apiUrl)
         const response = await fetch(`${apiUrl}/posts?_limit=5`)
         
         if (!response.ok) {
