@@ -1,6 +1,7 @@
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import PostsList from "./components/PostsList";
 
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
     <div>
       <Header/>
       <Hero/>
+      <PostsList/>
       <Footer/>
       {/* <Search/> */}
     </div>
